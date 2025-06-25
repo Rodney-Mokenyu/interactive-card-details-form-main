@@ -167,9 +167,11 @@ body {
   font-size: 1.1rem;
   text-transform: capitalize;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  @media (prefers-reduced-motion: reduce) {
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary {
     transition: none;
-  };
+  }
 }
 
 .btn-primary:hover {
