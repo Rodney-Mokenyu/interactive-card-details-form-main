@@ -27,9 +27,10 @@
   </style>
 </head>
 <body>
-  <h1 class="visually-hidden">Interactive Credit Card Details Form</h1>
+  
 
   <main class="main-content-wrapper"> <section class="cards-section">
+    <h1 class="visually-hidden">Interactive Credit Card Details Form</h1>
       <div class="d-flex flex-column align-items-center gap-4">
         <div class="card-preview-container card-back-position position-relative"> <img src="images/bg-card-back.png" alt="Card Back Background" class="w-100 h-100 position-absolute top-0 start-0">
           <div class="card-content position-relative z-2 p-4 h-100 d-flex flex-column justify-content-end align-items-end">
@@ -92,7 +93,7 @@
 
         <div class="row g-3 mb-4"> <div class="col-12 d-flex justify-content-between align-items-start gap-3">
             <div class="flex-grow-1">
-              <label class="form-label d-block">EXP. DATE (MM/YY)</label>
+              <label id="expDateLabel" class="form-label d-block">EXP. DATE (MM/YY)</label>
               <div class="d-flex gap-2">
                 <input
                   type="text"
@@ -103,6 +104,7 @@
                   maxlength="2"
                   required
                   aria-describedby="expDateError"
+                  aria-labelledby="expDateLabel"
                   
                 />
                 <input
@@ -114,6 +116,7 @@
                   maxlength="2"
                   required
                   aria-describedby="expDateError"
+                  aria-labelledby="expDateLabel"
                   
                 />
               </div>
