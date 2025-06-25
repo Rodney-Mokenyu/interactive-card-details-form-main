@@ -206,7 +206,6 @@ body {
 
 @media (min-width: 62em) { 
   body {
-    background-color: var(--purple-950);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -276,7 +275,7 @@ body {
   .form-section {
     width: 100%;
     max-width: 23.75em; /* 380px */
-    padding: 0 1.25em; /* 20px */
+    
     margin-top: 0;
   }
 }
