@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     cardNumberInput.addEventListener('input', function() {
-        let value = cardNumberInput.value.replace(/\s/g, ''); // Remove spaces for validation
+        const value = cardNumberInput.value.replace(/\s/g, ''); // Remove spaces for validation
         // Format for display (add spaces every 4 digits)
         const formattedValue = value.replace(/(\d{4})(?=\d)/g, '$1 ');
         cardNumberInput.value = formattedValue; // Update input field with formatted value
