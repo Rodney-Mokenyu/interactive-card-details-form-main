@@ -1,21 +1,17 @@
+/* ===================================== */
+/* 1. Global Styles            */
+/* ===================================== */
+
 /* Universal Box-Sizing */
-* {
+*,
+*::before,
+*::after { /* Add ::before and ::after for completeness */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Color Variables and Font Family */
-:root {
-  --gradient-active-input: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
-  --red-400: hsl(0, 100%, 66%);
-  --white: hsl(0, 100%, 100%);
-  --gray-200: hsl(270, 3%, 87%);
-  --gray-400: hsl(212, 12%, 71%);
-  --purple-950: hsl(278, 68%, 11%);
-  --purple-background: hsl(278, 94%, 30%);
-}
-
+/* Base Body Styles */
 body {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 500;
@@ -24,13 +20,37 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-start; /* Or center, depending on desired initial alignment */
 }
 
+
+/* ===================================== */
+/* 2. CSS Variables            */
+/* ===================================== */
+
+:root {
+  /* Primary Colors */
+  --gradient-active-input: linear-gradient(hsl(249, 99%, 64%), hsl(278, 94%, 30%));
+  --red-400: hsl(0, 100%, 66%);
+
+  /* Neutral Colors */
+  --white: hsl(0, 100%, 100%);
+  --gray-200: hsl(270, 3%, 87%);
+  --gray-400: hsl(212, 12%, 71%);
+  --purple-950: hsl(278, 68%, 11%);
+  --purple-background: hsl(278, 94%, 30%); /* Consider if this is truly a background color or just another shade */
+}
+
+
+/* ===================================== */
+/* 3. Layout/Main Structure    */
+/* ===================================== */
+
+/* Main Content Wrapper */
 .main-content-wrapper {
   width: 100%;
   max-width: 90em; /* 1440px */
-  background-color: var(--white);
+  background-color: var(--white); /* This might change based on desktop layout */
   padding: 1.25em; /* 20px */
   display: flex;
   flex-direction: column;
@@ -38,6 +58,7 @@ body {
   gap: 1.875em; /* 30px */
 }
 
+/* Cards Section - Mobile First */
 .cards-section {
   width: 100%;
   padding: 1.25em 0; /* 20px 0 */
@@ -50,6 +71,20 @@ body {
   background: url('../images/bg-main-mobile.png') no-repeat center top / cover;
 }
 
+/* Form Section - Mobile First */
+.form-section {
+  width: 100%;
+  max-width: 23.4375em; /* 375px */
+  padding: 1.25em; /* 20px */
+  margin-top: 6.25em; /* 100px */
+}
+
+
+/* ===================================== */
+/* 4. Components               */
+/* ===================================== */
+
+/* --- Card Preview --- */
 .card-preview-container {
   width: 17.5em; /* 280px */
   height: 9.6875em; /* 155px */
@@ -81,18 +116,6 @@ body {
   justify-content: space-between;
 }
 
-.card-content .card-cvc {
-  height: 100%;
-  position: relative;
-  top: 2.8125em; /* 45px */
-  right: 0.3125em; /* 5px */
-  font-size: 0.8rem;
-  padding: 0rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 .card-logo {
   width: 3.75em; /* 60px */
 }
@@ -102,20 +125,26 @@ body {
   letter-spacing: 0.125em; /* 2px */
 }
 
-.form-section {
-  width: 100%;
-  max-width: 23.4375em; /* 375px */
-  padding: 1.25em; /* 20px */
-  margin-top: 6.25em; /* 100px */
+.card-content .card-cvc { /* More specific selector if needed */
+  height: 100%; /* This might be redundant based on parent Flexbox */
+  position: relative;
+  top: 2.8125em; /* 45px */
+  right: 0.3125em; /* 5px */
+  font-size: 0.8rem;
+  padding: 0rem; /* Should this be 0? Maybe remove to inherit from parent. */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+/* --- Form Elements --- */
 .form-label {
   text-transform: uppercase;
   font-size: 0.7rem;
   color: var(--purple-950);
   letter-spacing: 0.0625em; /* 1px */
   margin-bottom: 0.5rem;
-  display: block;
+  display: block; /* Ensure it takes full width */
   font-weight: bold;
 }
 
@@ -129,35 +158,42 @@ body {
 
 .form-control::placeholder {
   color: var(--gray-200);
-  opacity: 1;
+  opacity: 1; /* Bootstrap's default for placeholder might reduce opacity */
 }
 
 .form-control:focus {
   outline: none;
-  border-color: transparent;
+  border-color: transparent; /* This makes the gradient show through */
   background-image: var(--gradient-active-input);
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  box-shadow: none;
+  box-shadow: none; /* Reset Bootstrap's default focus shadow */
 }
 
-.input[type="text"] {
-  inline-size: calc(50% - 0.625em); /* 10px */
-}
+/* Specific input for MM/YY to apply half-width, if not handled by Bootstrap grid */
+/* .input[type="text"] { /* This selector is very broad. Consider a more specific class like .form-control-small */
+/* inline-size: calc(50% - 0.625em); */
+/* } */
 
+
+/* --- Validation States --- */
 .form-control.is-invalid {
   border-color: var(--red-400);
+  /* Bootstrap adds an icon for .is-invalid by default, which needs padding-right. */
+  /* If you're not using the icon, remove this line. */
   padding-right: calc(1.5em + 0.75rem);
-  background-image: none;
+  background-image: none; /* Remove Bootstrap's default invalid icon background */
 }
 
 .invalid-feedback {
-  display: block;
+  display: block; /* Bootstrap default is hidden, need to override */
   color: var(--red-400);
   font-size: 0.7rem;
   margin-top: 0.25rem;
 }
 
+
+/* --- Buttons --- */
 .btn-primary {
   background-color: var(--purple-950);
   border-color: var(--purple-950);
@@ -168,21 +204,24 @@ body {
   text-transform: capitalize;
   transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 @media (prefers-reduced-motion: reduce) {
   .btn-primary {
-    transition: none;
+    transition: none; /* Disable transition for accessibility */
   }
 }
 
 .btn-primary:hover {
-  background-color: hsl(278, 68%, 25%);
+  background-color: hsl(278, 68%, 25%); /* Darker shade for hover */
   border-color: hsl(278, 68%, 25%);
 }
 
 .btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem hsla(278, 68%, 11%, 0.25);
+  box-shadow: 0 0 0 0.25rem hsla(278, 68%, 11%, 0.25); /* Custom focus ring */
 }
 
+
+/* --- Completed State --- */
 .completed-state {
   padding: 1.25em; /* 20px */
   margin-top: 3.125em; /* 50px */
@@ -204,34 +243,76 @@ body {
   color: var(--gray-400);
 }
 
-@media (min-width: 62em) { 
+
+/* ===================================== */
+/* 5. Utilities & Third-Party  */
+/* ===================================== */
+
+/* Visually Hidden for Accessibility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Attribution Footer (Often at the very end of the file) */
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  padding: 1em; /* Add some padding if it's too close to content */
+}
+
+.attribution a {
+  color: hsl(228, 45%, 44%);
+}
+
+
+/* ===================================== */
+/* 6. Media Queries            */
+/* ===================================== */
+
+/* Desktop Styles (Min-width: 62em / 992px) */
+@media (min-width: 62em) {
+  /* Body/Global Adjustments for Desktop */
   body {
-    flex-direction: column;
+    flex-direction: column; /* This seems specific to the body, might stay column */
     justify-content: center;
     align-items: center;
-  }
-
-  .main-content-wrapper {
-    flex-direction: row;
-    align-items: center;
-    gap: 9.375em; /* 150px */
-    padding: 0;
-    width: auto;
-    height: 100vh;
-  }
-
-  .cards-section {
-    flex-direction: column;
-    height: 100%;
-    padding: 0;
-    width: 28.125em; /* 450px */
-    align-items: flex-start;
-    position: relative;
-    margin-top: 0;
-    background: none;
+    /* Move the background image from .cards-section to body if it covers the whole left side */
     background: url('../images/bg-main-desktop.png') no-repeat left center / auto 100vh;
   }
 
+  /* Main Content Wrapper Desktop Layout */
+  .main-content-wrapper {
+    flex-direction: row; /* Arrange main sections side-by-side */
+    align-items: center;
+    gap: 9.375em; /* 150px */
+    padding: 0;
+    width: auto; /* Allow content to dictate width */
+    height: 100vh; /* Ensure it takes full viewport height */
+    background-color: transparent; /* If body handles background */
+  }
+
+  /* Cards Section Desktop Positioning */
+  .cards-section {
+    flex-direction: column; /* Cards remain stacked */
+    height: 100%; /* Take full height of wrapper */
+    padding: 0;
+    width: 28.125em; /* 450px - specific width for the card area */
+    align-items: flex-start; /* Align cards to the left within this section */
+    position: relative; /* Keep for absolute children */
+    margin-top: 0;
+    background: none; /* Remove mobile background if body handles desktop */
+    /* If desktop background for the sidebar is *only* this section: */
+    /* background: url('../images/bg-main-desktop.png') no-repeat left center / auto 100%; */
+  }
+
+  /* Card Preview Sizing and Positioning for Desktop */
   .card-preview-container {
     width: 25em; /* 400px */
     height: 13.75em; /* 220px */
@@ -239,26 +320,24 @@ body {
   }
 
   .card-front-position {
-    position: absolute;
-    top: 0.9375em; /* 15px */
-    left: 5em; /* 80px */
-    transform: translateY(-50%);
+    top: 50%; /* Center vertically within cards-section */
+    left: 5em; /* 80px - Offset from left edge */
+    transform: translateY(-50%); /* Adjust for true vertical centering */
   }
 
   .card-back-position {
-    position: absolute;
-    top: 30em; /* 480px */
-    left: 9.375em; /* 150px */
-    transform: translateY(-50%);
+    top: 50%; /* Center vertically within cards-section */
+    left: 9.375em; /* 150px - Offset from left edge, further down */
+    transform: translateY(20%); /* Adjust to appear below front card */
   }
 
+  /* Card Content Adjustments for Desktop */
   .card-content .card-cvc {
-    height: 100%;
-    position: relative;
-    top: 3.4375em; /* 55px */
+    top: 3.4375em; /* 55px - Adjust specific CVC position */
     right: 1.25em; /* 20px */
     font-size: 1.2rem;
     padding: 1.25em; /* 20px */
+    /* Ensure flex properties are still desired */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -272,10 +351,12 @@ body {
     font-size: 1.7rem;
   }
 
+  /* Form Section Desktop Adjustments */
   .form-section {
-    width: 100%;
+    width: 100%; /* Or auto */
     max-width: 23.75em; /* 380px */
-    
-    margin-top: 0;
+    margin-top: 0; /* Remove mobile margin */
+    /* Adjust padding if needed for spacing within the main-content-wrapper */
+    padding: 0;
   }
 }
